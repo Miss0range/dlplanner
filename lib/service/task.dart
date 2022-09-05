@@ -10,9 +10,9 @@ class Task{
   @HiveField(1)
   DateTime taskTime;
   @HiveField(2)
-  bool completed = false;
+  bool completed;
 
-  Task({required this.text, required this.taskTime});
+  Task({required this.text, required this.taskTime, required this.completed});
 
   String getDate() {
     if(taskTime.year == DateTime.now().year){
@@ -29,7 +29,7 @@ class Task{
   }
 
   void completeTask(){
-    completed = true;
+    completed = !completed;
   }
 
 }
