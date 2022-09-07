@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddForm extends StatefulWidget {
-  const AddForm({Key? key}) : super(key: key);
+  String taskName;
+  DateTime taskCombTime;
+  bool edit;
+
+
+  AddForm({this.taskName = '',required this.taskCombTime, this.edit = false, Key? key}) : super(key: key);
 
   @override
   State<AddForm> createState() => _AddFormState();
@@ -10,11 +15,22 @@ class AddForm extends StatefulWidget {
 
 class _AddFormState extends State<AddForm> {
 
-  String taskName = '';
-  DateTime taskDate = DateTime(2000);
-  TimeOfDay taskTime = const TimeOfDay(hour: 0, minute: 0);
   String dateString = 'mm/dd/yy';
   String timeString = '00:00';
+
+  late DateTime taskDate ;
+  late TimeOfDay taskTime ;
+
+  @override
+  void initState(){
+    super.initState();
+      taskDate = DateTime(widget.taskCombTime.year,widget.taskCombTime.month, widget.taskCombTime.day);
+      taskTime = TimeOfDay(hour: widget.taskCombTime.hour, minute: widget.taskCombTime.minute);
+      if(widget.edit){
+        dateString = DateFormat.yMd().format(taskDate);
+        timeString = '${taskTime.hour.toString().padLeft(2,'0')} : ${taskTime.minute.toString().padLeft(2,'0')} ';
+      }
+  }
 
   TextStyle labelStyle = const TextStyle(
     fontSize: 20.0,
@@ -43,13 +59,14 @@ class _AddFormState extends State<AddForm> {
             style: labelStyle,
           ),
           TextFormField(
+            initialValue: widget.taskName,
             validator: (val){
               if(val == null || val.isEmpty){
                 return 'Task Name can\'t be empty';
               }else if(val.length > 255){
                 return 'Task Name too long.';
               }else {
-                taskName = val;
+                widget.taskName = val;
               }
             },
 
@@ -83,11 +100,11 @@ class _AddFormState extends State<AddForm> {
             onPressed: () async{
               DateTime? tempTime = await showDatePicker(
                 context: context,
-                initialDate: DateTime.now(),
+                initialDate: taskDate,
                 firstDate: DateTime.now(),
-                lastDate: DateTime(2035),
+                lastDate: DateTime.now().add(const Duration(days: 730)),
               );
-              taskDate = (tempTime != null) ? tempTime : taskDate;
+              taskDate = tempTime ?? taskDate;
               //update date on form
               if(tempTime != null) {
                 setState(() {
@@ -123,15 +140,15 @@ class _AddFormState extends State<AddForm> {
           ),
           ElevatedButton(
             onPressed: () async {
-              TimeOfDay initTime = const TimeOfDay(hour: 0, minute: 0);
-              if(taskDate.year == DateTime.now().year && taskDate.month == DateTime.now().month && taskDate.day == DateTime.now().day){
-                initTime = TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
-              }
+              TimeOfDay initTime = taskTime;
+              // if(taskDate.year == DateTime.now().year && taskDate.month == DateTime.now().month && taskDate.day == DateTime.now().day){
+              //   initTime = TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
+              // }
               TimeOfDay? tempTime = await showTimePicker(
                 context: context,
                 initialTime: initTime,
               );
-              taskTime = (tempTime != null) ? tempTime : taskTime;
+              taskTime = tempTime ?? taskTime;
               if( tempTime!=null ){
                 setState(() {
                   timeString = taskTime.format(context);
@@ -194,7 +211,7 @@ class _AddFormState extends State<AddForm> {
                         ScaffoldMessenger.of(context).showSnackBar(formErrorSnackBar);
                       }else {
                         Navigator.of(context).pop({
-                          'taskName': taskName,
+                          'taskName': widget.taskName,
                           'taskTime': combTime,
                         });
                       }

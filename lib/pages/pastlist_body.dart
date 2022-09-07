@@ -1,30 +1,27 @@
-import 'package:deadline_planner/pages/form.dart';
 import 'package:deadline_planner/stateContainer.dart';
 import 'package:flutter/material.dart';
-import '../service/task.dart';
 import '../service/taskTemplate.dart';
 
-class TodoBody extends StatefulWidget {
-  const TodoBody({Key? key}) : super(key: key);
+class PastBody extends StatefulWidget {
+  const PastBody({Key? key}) : super(key: key);
 
   @override
-  State<TodoBody> createState() => _TodoBodyState();
+  State<PastBody> createState() => _PastBodyState();
 }
 
-class _TodoBodyState extends State<TodoBody> {
+class _PastBodyState extends State<PastBody> {
 
-  //use only for refresh body
+  //Use only for refresh the body
   Future<bool> refresh() async{
     setState(() {});
     return true;
   }
 
-
   Widget _buildTitle (BuildContext context){
-    if(ListContainer.of(context).taskList.isNotEmpty){
+    if(ListContainer.of(context).pastList.isNotEmpty){
       return const SizedBox.shrink();
     }else {
-      return const Text('Add Task to Begin');
+      return const Text('No Past Due Task');
     }
   }
 
@@ -41,38 +38,25 @@ class _TodoBodyState extends State<TodoBody> {
           _buildTitle(context),
           Expanded(
             child: ListView.builder(
-                itemCount: ListContainer.of(context).taskList.length,
+                itemCount: ListContainer.of(context).pastList.length,
                 itemBuilder: (BuildContext context, int index){
                   return Row(
                     children: [
                       TaskTemplate(
-                        task: ListContainer.of(context).taskList[index],
-                        editTask : () async{
-                          Task thisTask = ListContainer.of(context).taskList[index] ;
-                          dynamic modifiedTask = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddForm(taskCombTime: thisTask.taskTime, taskName: thisTask.text, edit: true),
-                            ),
-                          );
-                          setState(() {
-                            if(modifiedTask != null) {
-                              thisTask.text = modifiedTask['taskName'];
-                              thisTask.taskTime = modifiedTask['taskTime'];
-                              ListContainer.of(context).updateList('tasks');
-                            }
-                          });
+                        task: ListContainer.of(context).pastList[index],
+                        editTask:(){
+                          //Past task not editable.
                         },
                         toggleSpecial :(){
-                          ListContainer.of(context).taskList[index].toggleSpecialTask();
-                          ListContainer.of(context).updateList('tasks');
+                          ListContainer.of(context).pastList[index].toggleSpecialTask();
+                          ListContainer.of(context).updateList('past');
                         },
                         completeTask: (){
-                          ListContainer.of(context).taskList[index].completeTask();
-                          ListContainer.of(context).doneList.add(ListContainer.of(context).taskList[index]);
-                          ListContainer.of(context).taskList.remove(ListContainer.of(context).taskList[index]);
+                          ListContainer.of(context).pastList[index].completeTask();
+                          ListContainer.of(context).doneList.add(ListContainer.of(context).pastList[index]);
+                          ListContainer.of(context).pastList.remove(ListContainer.of(context).pastList[index]);
                           setState(() {
-                            ListContainer.of(context).updateList('tasks');
+                            ListContainer.of(context).updateList('past');
                             ListContainer.of(context).updateList('done');
                           });
                         },
@@ -95,8 +79,8 @@ class _TodoBodyState extends State<TodoBody> {
                                       onPressed: () {
                                         Navigator.pop(context, true);
                                         setState(() {
-                                          ListContainer.of(context).taskList.remove(ListContainer.of(context).taskList[index]);
-                                          ListContainer.of(context).updateList('tasks');
+                                          ListContainer.of(context).pastList.remove(ListContainer.of(context).pastList[index]);
+                                          ListContainer.of(context).updateList('past');
                                         });
                                       },
                                       child : const Text('Confirm'),
@@ -111,14 +95,14 @@ class _TodoBodyState extends State<TodoBody> {
                     ],
                   );
                 },
-              physics: const AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
             ),
           ),
         ],
       ),
       onRefresh: (){
-       return refresh();
-     },
+        return refresh();
+      },
     );
   }
 }

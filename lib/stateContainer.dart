@@ -36,22 +36,36 @@ class ListContainer extends StatefulWidget {
 class _ListContainerState extends State<ListContainer> {
   List<Task> taskList = [];
   List<Task> doneList = [];
+  List<Task> pastList = [];
 
 
   void updateList(String name){
     switch(name){
       case 'tasks': {
-        widget.listBox.put(name,taskList);
-        taskList.sort((a,b){
-          return a.taskTime.compareTo(b.taskTime);
+        setState(() {
+          taskList.sort((a,b){
+            return a.taskTime.compareTo(b.taskTime);
+          });
         });
+        widget.listBox.put(name,taskList);
       }
       break;
       case 'done': {
-        widget.listBox.put(name,doneList);
-        doneList.sort((a,b){
-          return a.taskTime.compareTo(b.taskTime);
+        setState(() {
+          doneList.sort((a,b){
+            return a.taskTime.compareTo(b.taskTime);
+          });
         });
+        widget.listBox.put(name,doneList);
+      }
+      break;
+      case 'past': {
+        setState(() {
+          pastList.sort((a,b){
+            return a.taskTime.compareTo(b.taskTime);
+          });
+        });
+        widget.listBox.put(name,pastList);
       }
       break;
       default: {}
@@ -59,11 +73,34 @@ class _ListContainerState extends State<ListContainer> {
     }
   }
 
+  //move past due task to pastList from taskList only (do not affect items in done list)
+  void checkPastTask(){
+    //check for unfinished & past due task
+    taskList.forEach((task) {
+      //if task date is before now
+      if(task.taskTime.compareTo(DateTime.now()) < 0){
+        //add past due task to pastList
+        pastList.add(task);
+      }
+    });
+    //remove past due task from taskList
+    taskList.removeWhere((task) => (task.taskTime.compareTo(DateTime.now()) < 0 ));
+  }
 
   @override
   void initState() {
+    super.initState();
     taskList = (widget.listBox.get('tasks')?? []).cast<Task>();
     doneList = (widget.listBox.get('done')?? []).cast<Task>();
+    pastList = (widget.listBox.get('past')?? []).cast<Task>();
+
+    //Remove past due task from taskList
+    checkPastTask();
+    widget.listBox.put('tasks',taskList);
+    //Remove expired task from taskList
+    pastList.removeWhere((task) => ( !task.special && (task.taskTime.add(const Duration(days:30)).compareTo(DateTime.now()) < 0 )) );
+    widget.listBox.put('past',pastList);
+
   }
 
   @override

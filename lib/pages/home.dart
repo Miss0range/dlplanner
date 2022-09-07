@@ -1,4 +1,6 @@
+import 'package:deadline_planner/pages/calendar.dart';
 import 'package:deadline_planner/pages/donelist_body.dart';
+import 'package:deadline_planner/pages/pastlist_body.dart';
 import 'package:deadline_planner/pages/todolist_body.dart';
 import 'package:deadline_planner/stateContainer.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +18,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _selectedIndex = 0;
-  List<Widget> bodyWidgets = [const TodoBody(),const DoneBody()];
+  List<Widget> bodyWidgets = [const TodoBody(),const DoneBody(), const PastBody(), const TaskCalendar()];
 
   //change nav bar index
   void onNavTapped(int index){
     setState((){
       _selectedIndex = index;
-      print(index);
     });
   }
 
@@ -53,11 +54,10 @@ class _HomeState extends State<Home> {
         onPressed: () async{
           dynamic task = await Navigator.pushNamed(context, '/form');
           if(task!=null){
-            Task tempTask = Task(text: task['taskName'], taskTime: task['taskTime'], completed: false);
-            setState(() {
+            Task tempTask = Task(text: task['taskName'], taskTime: task['taskTime']);
+            if(!mounted) return;
               ListContainer.of(context).taskList.add(tempTask);
               ListContainer.of(context).updateList('tasks');
-            });
           }
         },
         tooltip: 'Add',
@@ -73,6 +73,16 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_turned_in),
             label: 'Done',
+            backgroundColor: Colors.indigo[50],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment_late),
+            label: 'Past Due',
+            backgroundColor: Colors.indigo[50],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Calendar',
             backgroundColor: Colors.indigo[50],
           ),
         ],

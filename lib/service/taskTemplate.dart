@@ -5,13 +5,81 @@ class TaskTemplate extends StatefulWidget {
   final Task task;
   final VoidCallback delete;
   final VoidCallback completeTask;
-  const TaskTemplate({required this.task, required this.delete,required this.completeTask, super.key});
+  final VoidCallback toggleSpecial;
+  final VoidCallback editTask;
+  const TaskTemplate({required this.task, required this.delete,required this.completeTask, required this.toggleSpecial, required this.editTask, super.key});
 
   @override
   State<TaskTemplate> createState() => _TaskTemplateState();
 }
 
 class _TaskTemplateState extends State<TaskTemplate> {
+
+  Widget _buildTime(BuildContext context){
+    if(widget.task.taskTime.compareTo(DateTime.now()) > 0){
+      return Row(
+        children: [
+          Text(
+            widget.task.getDate(),
+            style: const TextStyle(
+              color: Colors.indigo,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(width: 30.0,),
+          Text(
+            widget.task.getTimeLeft(),
+            style: TextStyle(
+              color: Colors.red[700],
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      );
+    }else{
+      return Text(
+          widget.task.getDate(),
+          style: const TextStyle(
+          color: Colors.indigo,
+          fontSize: 16.0,
+          fontWeight: FontWeight.w500,
+        )
+      );
+    }
+  }
+  
+  Widget _buildActionBar(BuildContext context){
+    if(widget.task.taskTime.compareTo(DateTime.now()) > 0){
+      return Row(
+        children: [
+          IconButton(
+            onPressed: widget.editTask,
+            icon: const Icon(Icons.edit_note_rounded),
+            color: Colors.indigo,
+          ),
+          IconButton(
+            onPressed: widget.delete,
+            icon: const Icon(Icons.delete_forever),
+            color: Colors.indigo,
+          ),
+        ],
+      );
+    }else{
+      return Row(
+        children: [
+          IconButton(
+            onPressed: widget.delete,
+            icon: const Icon(Icons.delete_forever),
+            color: Colors.indigo,
+          ),
+        ],
+      );
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,58 +97,54 @@ class _TaskTemplateState extends State<TaskTemplate> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5.0, 3.0, 3.0, 0.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                  Checkbox(
-                      value: widget.task.completed,
-                      onChanged: (bool? value){
-                        setState((){
-                          widget.completeTask();
-                        });
-                      }
-                  ),
-                  Flexible(
-                    child: Text(
-                      widget.task.text,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight:FontWeight.w700,
-                        fontSize: 16.0,
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: widget.task.completed,
+                            onChanged: (bool? value){
+                              setState((){
+                                widget.completeTask();
+                              });
+                            }
+                        ),
+                          Flexible(
+                            child: Text(
+                                widget.task.text,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight:FontWeight.w700,
+                                  fontSize: 16.0,
+                                ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                   const SizedBox(width: 10.0,),
+                    IconButton(
+                        onPressed: (){
+                          setState(() {
+                            widget.toggleSpecial();
+                          });
+                        },
+                        icon: (widget.task.special) ? const Icon(Icons.star) : const Icon(Icons.star_border_outlined),
+                    )
                 ],
                 ),
               ),
               //Due date
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.task.getDate(),
-                    style: const TextStyle(
-                      color: Colors.indigo,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+                    child:_buildTime(context),
                   ),
-                  const SizedBox(width: 10.0,),
                   //time left
-                  Text(
-                    widget.task.getTimeLeft(),
-                    style: TextStyle(
-                      color: Colors.red[700],
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: widget.delete,
-                    icon: const Icon(Icons.delete_forever),
-                    color: Colors.indigo,
-                  ),
+                  _buildActionBar(context),
                 ],
               ),
             ],

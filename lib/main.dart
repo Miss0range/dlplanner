@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/form.dart';
@@ -12,6 +13,8 @@ Future<void> main() async{
   Directory dir = await getApplicationDocumentsDirectory();
   Hive.registerAdapter(TaskAdapter());
   await Hive.initFlutter(dir.path);
+
+  //await Hive.deleteBoxFromDisk('listBox');
 
   var box = await Hive.openBox('listBox');
 
@@ -38,7 +41,7 @@ Future<void> main() async{
       initialRoute: '/',
       routes: {
         '/': (context) => Home(),
-        '/form': (context) => AddForm(),
+        '/form': (context) => AddForm(taskCombTime: DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day)),
       },
     ),
   ));

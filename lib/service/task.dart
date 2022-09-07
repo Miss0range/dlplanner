@@ -11,8 +11,10 @@ class Task{
   DateTime taskTime;
   @HiveField(2)
   bool completed;
+  @HiveField(3)
+  bool special;
 
-  Task({required this.text, required this.taskTime, required this.completed});
+  Task({required this.text, required this.taskTime, this.completed = false, this.special = false});
 
   String getDate() {
     if(taskTime.year == DateTime.now().year){
@@ -32,5 +34,8 @@ class Task{
     completed = !completed;
   }
 
+  void toggleSpecialTask(){
+    special = !special;
+  }
 }
 
