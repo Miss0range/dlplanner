@@ -1,6 +1,8 @@
 import 'package:deadline_planner/stateContainer.dart';
 import 'package:flutter/material.dart';
+import '../service/task.dart';
 import '../service/taskTemplate.dart';
+import 'form.dart';
 
 class PastBody extends StatefulWidget {
   const PastBody({Key? key}) : super(key: key);
@@ -13,7 +15,8 @@ class _PastBodyState extends State<PastBody> {
 
   //Use only for refresh the body
   Future<bool> refresh() async{
-    setState(() {});
+    setState(() {
+    });
     return true;
   }
 
@@ -44,8 +47,27 @@ class _PastBodyState extends State<PastBody> {
                     children: [
                       TaskTemplate(
                         task: ListContainer.of(context).pastList[index],
-                        editTask:(){
-                          //Past task not editable.
+                        editTask : () async{
+                          Task thisTask = ListContainer.of(context).pastList[index] ;
+                          dynamic modifiedTask = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddForm(taskCombTime: thisTask.taskTime, taskName: thisTask.text, edit: true),
+                            ),
+                          );
+                          setState(() {
+                            if(modifiedTask != null) {
+                              thisTask.text = modifiedTask['taskName'];
+                              thisTask.taskTime = modifiedTask['taskTime'];
+                              ListContainer.of(context).updateList('tasks');
+                            }
+                            if(thisTask.taskTime.compareTo(DateTime.now()) > 0){
+                              ListContainer.of(context).taskList.add(thisTask);
+                              ListContainer.of(context).pastList.remove(thisTask);
+                              ListContainer.of(context).updateList('tasks');
+                              ListContainer.of(context).updateList('past');
+                            }
+                          });
                         },
                         toggleSpecial :(){
                           ListContainer.of(context).pastList[index].toggleSpecialTask();

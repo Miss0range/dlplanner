@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
        appBar: AppBar(
          centerTitle: true,
          title: const Text(
-           'To Do List',
+           'Deadline Tracker',
            style: TextStyle(
              fontSize: 24.0,
              fontWeight: FontWeight.w500,

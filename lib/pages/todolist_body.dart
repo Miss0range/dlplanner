@@ -15,7 +15,11 @@ class _TodoBodyState extends State<TodoBody> {
 
   //use only for refresh body
   Future<bool> refresh() async{
-    setState(() {});
+    setState(() {
+      ListContainer.of(context).checkPastTask();
+      ListContainer.of(context).updateList('task');
+      ListContainer.of(context).updateList('past');
+    });
     return true;
   }
 
