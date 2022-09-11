@@ -70,7 +70,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
 
   //build widget function
   Widget _buildTodoTitle() {
-    if ((selectedPastEvents[selectedDay]??[]).isEmpty) {
+    if ((selectedTodoEvents[selectedDay]??[]).isEmpty) {
       return SizedBox.shrink();
     } else {
       return Padding(
@@ -79,7 +79,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
           'Todo',
           style: TextStyle(
             fontSize: 20.0,
-            color: Theme.of(context).primaryColorDark,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       );
@@ -96,7 +96,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
           'Finished',
           style: TextStyle(
             fontSize: 20.0,
-            color: Theme.of(context).primaryColorDark,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       );
@@ -113,7 +113,8 @@ class _TaskCalendarState extends State<TaskCalendar> {
           'Past Due',
           style: TextStyle(
             fontSize: 20.0,
-            color: Theme.of(context).primaryColorDark,
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       );
@@ -158,7 +159,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
               formatButtonVisible: true,
               formatButtonShowsNext: true,
               formatButtonDecoration: BoxDecoration(
-                color: Colors.amberAccent,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(5.0),
               ),
               formatButtonTextStyle: TextStyle(
@@ -169,7 +170,15 @@ class _TaskCalendarState extends State<TaskCalendar> {
 
             calendarStyle: CalendarStyle(
               markerDecoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                shape: BoxShape.circle,
+              ),
+              todayDecoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.inversePrimary,
+                shape: BoxShape.circle,
+              ),
+              selectedDecoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.inverseSurface,
                 shape: BoxShape.circle,
               ),
             ),
@@ -182,11 +191,11 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      tileColor: Theme.of(context).colorScheme.surfaceVariant,
+                      tileColor: Theme.of(context).colorScheme.errorContainer,
                       title: Text(
                         e.toString(),
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                           fontFamily: 'lato',
                           fontWeight: FontWeight.w700,
                         ),
@@ -207,11 +216,11 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      tileColor: Theme.of(context).colorScheme.inversePrimary,
+                      tileColor: Theme.of(context).colorScheme.onErrorContainer,
                       title: Text(
                         e.toString(),
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                           fontFamily: 'lato',
                           fontWeight: FontWeight.w700,
                         ),
@@ -232,11 +241,11 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      tileColor: Theme.of(context).disabledColor,
+                      tileColor: Colors.grey.shade200,
                       title: Text(
                         e.toString(),
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                           fontFamily: 'lato',
                           fontWeight: FontWeight.w700,
                         ),

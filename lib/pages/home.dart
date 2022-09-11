@@ -42,14 +42,15 @@ class _HomeState extends State<Home> {
            'Deadline Tracker',
            style: TextStyle(
              fontSize: 24.0,
-             fontWeight: FontWeight.w500,
-           ),
+             fontWeight: FontWeight.w700,
+         ),
          ),
          // leading: Text(
          //   DateFormat.MMMd().format(DateTime.now()),
          // ),
        ),
       body: bodyWidgets[_selectedIndex],
+      extendBody: true,
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
           dynamic task = await Navigator.pushNamed(context, '/form');
@@ -64,31 +65,28 @@ class _HomeState extends State<Home> {
         child: const Icon(Icons.add),
       ) ,
       bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
+        type: BottomNavigationBarType.shifting,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_rounded),
             label: 'Todo',
-            backgroundColor: Colors.indigo[50],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_turned_in),
             label: 'Done',
-            backgroundColor: Colors.indigo[50],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_late),
             label: 'Past Due',
-            backgroundColor: Colors.indigo[50],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
             label: 'Calendar',
-            backgroundColor: Colors.indigo[50],
           ),
         ],
         currentIndex: _selectedIndex,
         onTap: onNavTapped,
-        selectedItemColor: Colors.indigo[500],
       ),
     );
   }

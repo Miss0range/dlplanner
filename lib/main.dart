@@ -1,4 +1,5 @@
 
+import 'package:deadline_planner/theme/theme_constants.dart';
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/form.dart';
@@ -18,10 +19,11 @@ Future<void> main() async{
 
   var box = await Hive.openBox('listBox');
 
-
   runApp(ListContainer(
     listBox: box,
     child: MaterialApp(
+      theme: lightTheme,
+      darkTheme: darkTheme,
       initialRoute: '/',
       routes: {
         '/': (context) => Home(),

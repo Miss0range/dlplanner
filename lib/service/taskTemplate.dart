@@ -27,10 +27,10 @@ class _TaskTemplateState extends State<TaskTemplate> {
         children: [
           Text(
             widget.task.getDate(),
-            style: const TextStyle(
-              color: Colors.indigo,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
               fontSize: 16.0,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(
@@ -39,19 +39,19 @@ class _TaskTemplateState extends State<TaskTemplate> {
           Text(
             widget.task.getTimeLeft(),
             style: TextStyle(
-              color: Colors.red[700],
+              color: Theme.of(context).colorScheme.error,
               fontSize: 16.0,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],
       );
     } else {
       return Text(widget.task.getDate(),
-          style: const TextStyle(
-            color: Colors.indigo,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
             fontSize: 16.0,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w700,
           ));
     }
   }
@@ -65,7 +65,7 @@ class _TaskTemplateState extends State<TaskTemplate> {
         child: Card(
           margin: EdgeInsets.zero,
           elevation: 0.0,
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: (widget.task.taskTime.compareTo(DateTime.now()) > 0) ? Theme.of(context).colorScheme.surfaceVariant : Colors.grey.shade100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -89,7 +89,8 @@ class _TaskTemplateState extends State<TaskTemplate> {
                             child: Text(
                               widget.task.text,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.outline,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16.0,
                               ),
@@ -99,6 +100,7 @@ class _TaskTemplateState extends State<TaskTemplate> {
                       ),
                     ),
                     IconButton(
+                      color: Theme.of(context).colorScheme.surfaceTint,
                       onPressed: () {
                         setState(() {
                           widget.toggleSpecial();
@@ -106,7 +108,7 @@ class _TaskTemplateState extends State<TaskTemplate> {
                       },
                       icon: (widget.task.special)
                           ? const Icon(Icons.star)
-                          : const Icon(Icons.star_border_outlined),
+                          : const Icon(Icons.star_border_sharp),
                     )
                   ],
                 ),
@@ -125,12 +127,12 @@ class _TaskTemplateState extends State<TaskTemplate> {
                       IconButton(
                         onPressed: widget.editTask,
                         icon: const Icon(Icons.edit_note_rounded),
-                        color: Colors.indigo,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       IconButton(
                         onPressed: widget.delete,
                         icon: const Icon(Icons.delete_forever),
-                        color: Colors.indigo,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ],
                   ),

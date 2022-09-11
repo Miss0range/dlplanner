@@ -90,6 +90,7 @@ class _AddFormState extends State<AddForm> {
             child: Text(
               dateString,
               style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
                 fontWeight: FontWeight.w500,
                 fontSize: 18.0,
               ),
@@ -132,9 +133,10 @@ class _AddFormState extends State<AddForm> {
             padding: const EdgeInsets.all(20.0),
             child: Text(
               timeString,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 18.0,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -176,6 +178,10 @@ class _AddFormState extends State<AddForm> {
         centerTitle: true,
         title: const Text(
           'Add new task',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       body: Container(
