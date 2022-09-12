@@ -159,10 +159,10 @@ class _TaskCalendarState extends State<TaskCalendar> {
               formatButtonVisible: true,
               formatButtonShowsNext: true,
               formatButtonDecoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.onTertiary,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              formatButtonTextStyle: TextStyle(
+              formatButtonTextStyle: const TextStyle(
                 color: Colors.black45,
                 fontWeight: FontWeight.w900,
               ),
@@ -191,7 +191,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      tileColor: Theme.of(context).colorScheme.errorContainer,
+                      tileColor: Theme.of(context).colorScheme.primaryContainer,
                       title: Text(
                         e.toString(),
                         style: TextStyle(
@@ -216,7 +216,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      tileColor: Theme.of(context).colorScheme.onErrorContainer,
+                      tileColor: Theme.of(context).colorScheme.surfaceVariant,
                       title: Text(
                         e.toString(),
                         style: TextStyle(
@@ -241,7 +241,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      tileColor: Colors.grey.shade200,
+                      tileColor: Theme.of(context).colorScheme.tertiary,
                       title: Text(
                         e.toString(),
                         style: TextStyle(

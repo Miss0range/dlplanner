@@ -59,13 +59,13 @@ class _TaskTemplateState extends State<TaskTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 3.0,horizontal: 6.0),
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 16.0,
         child: Card(
           margin: EdgeInsets.zero,
           elevation: 0.0,
-          color: (widget.task.taskTime.compareTo(DateTime.now()) > 0) ? Theme.of(context).colorScheme.surfaceVariant : Colors.grey.shade100,
+          color: (widget.task.taskTime.compareTo(DateTime.now()) > 0) ? Theme.of(context).colorScheme.surfaceVariant : Theme.of(context).colorScheme.tertiary,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -118,7 +118,7 @@ class _TaskTemplateState extends State<TaskTemplate> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(12.0, 0.0, 0.0, 0.0),
                     child: _buildTime(context),
                   ),
                   //time left

@@ -27,7 +27,7 @@ class Task{
 
   String getTimeLeft(){
     Duration remainTime = taskTime.difference(DateTime.now());
-    return '${remainTime.inHours}h ${remainTime.inMinutes.remainder(60)}m';
+    return '${remainTime.inDays}d ${remainTime.inHours.remainder(24)}h ${remainTime.inMinutes.remainder(60)}m';
   }
 
   void completeTask(){

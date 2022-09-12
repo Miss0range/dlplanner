@@ -16,114 +16,232 @@ const STAR_COLOR = Colors.amber;
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: PRIMARY_COLOR,
-  //backgroundColor: Color(0xFFF8FBF7),
-  scaffoldBackgroundColor: Colors.white,
   fontFamily: 'lato',
-  //app bar theme
-  appBarTheme: const AppBarTheme(
-    elevation: 1.0,
-    shadowColor: PRIMARY_COLOR,
-    foregroundColor: NEAR_WHITE,
-    backgroundColor: PRIMARY_COLOR,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        bottom: Radius.circular(10.0),
+  scaffoldBackgroundColor: Colors.grey.shade100,
+  colorScheme: ColorScheme(
+    brightness: Brightness.light,
+
+    primary: PRIMARY_COLOR,
+    onPrimary: NEAR_WHITE,
+    secondary: SECONDARTY_COLOR,
+    onSecondary: NEAR_WHITE,
+    background: NEAR_WHITE,
+    onBackground: PRIMARY_COLOR,
+
+    error: Colors.red.shade300,
+    onError: Colors.white,
+
+    surface: ACCENT_COLOR,
+    onSurface: FONT_COLOR2,
+
+    //active card background / finished calendar card background
+    surfaceVariant: BG_COLOR,
+    //inactive card background / inactive calendar card background
+    tertiary: Colors.grey.shade300,
+    //finished card background /active calendar card background
+    primaryContainer: ACCENT_COLOR,
+    //star
+    surfaceTint: STAR_COLOR,
+    //calendar format button color
+    onTertiary: SECONDARTY_COLOR,
+
+    //calendar today
+    inversePrimary: PRIMARY_COLOR,
+    //calendar select day
+    inverseSurface:Color(0xff4A8E8B),
+  ),
+
+
+  //card Theme
+    cardTheme: const CardTheme(
+      elevation: 0.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
     ),
+
+    checkboxTheme: CheckboxThemeData(
+      checkColor: MaterialStateProperty.all(FONT_COLOR2),
+      fillColor: MaterialStateProperty.all(SECONDARTY_COLOR),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(2.0),
+      ),
+      side:const BorderSide(
+        color: SECONDARTY_COLOR,
+        width: 2.0,
+      ),
+    ),
+    appBarTheme: const AppBarTheme(
+      // foregroundColor: NEAR_WHITE,
+      // backgroundColor: PRIMARY_COLOR,
+      elevation: 1.0,
+      shadowColor: PRIMARY_COLOR,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.elliptical(500.0, 50.0),
+        ),
+      ),
+    ),
+  //bottom nav bar
+  canvasColor: PRIMARY_COLOR,
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    elevation: 0,
+    unselectedItemColor:ACCENT_COLOR,
+    selectedItemColor: NEAR_WHITE,
   ),
-  //floating Auction Button Theme
-  floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    foregroundColor: NEAR_WHITE,
-    backgroundColor: SECONDARTY_COLOR,
+
+  //Form text input color
+  textTheme: TextTheme(
+      subtitle1: TextStyle(
+        color: PRIMARY_COLOR,
+      ),
   ),
-  //card theme
+    //Form input theme
+    inputDecorationTheme: const InputDecorationTheme(
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: SECONDARTY_COLOR,
+          width: 2.0,
+        ),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+            color: PRIMARY_COLOR,
+          width: 2.0,
+        ),
+      ),
+    ),
+
+  //time picker theme
+  timePickerTheme: const TimePickerThemeData(
+    helpTextStyle: TextStyle(
+      color: PRIMARY_COLOR,
+      fontWeight: FontWeight.w500,
+      fontSize: 20.0
+    ),
+    dialBackgroundColor: NEAR_WHITE,
+    dialHandColor: SECONDARTY_COLOR,
+    backgroundColor: ACCENT_COLOR,
+    // dayPeriodTextColor: SECONDARTY_COLOR,
+    // dayPeriodColor: CARD_BG,
+    hourMinuteTextColor: PRIMARY_COLOR,
+    hourMinuteColor: BG_COLOR,
+  ),
+);
+
+//Dark theme data
+
+const DARK_GREY = Color(0xFF212121);
+const DPRIMARY_COLOR = Color(0xFF7be495);
+const DSECONDARY_COLOR = Color(0xFF56c596);
+const DNEAR_WHITE = Color(0xFFcff4d2);
+
+const DSURFACE_COLOR =Color(0xffcff4d2);
+
+ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  fontFamily: 'lato',
+  scaffoldBackgroundColor: Color(0xff2e2e2e),
+  colorScheme: ColorScheme(
+    brightness: Brightness.dark,
+    primary:DPRIMARY_COLOR,
+    onPrimary: DARK_GREY,
+    secondary: DPRIMARY_COLOR,
+    onSecondary: DARK_GREY,
+
+    error: Colors.red.shade300,
+    onError: Colors.white,
+
+    background: DARK_GREY,
+    onBackground: DPRIMARY_COLOR,
+
+    surface:DARK_GREY,
+    onSurface:DPRIMARY_COLOR,
+
+
+    //active card background / finished calendar card background
+    surfaceVariant: DARK_GREY,
+    //inactive card background
+    tertiary: Colors.grey.shade800,
+    //finished card background / active calendar card background
+    primaryContainer: Color(0xff214b39),
+    //star
+    surfaceTint: DPRIMARY_COLOR,
+    //calendar format button style
+    onTertiary: DPRIMARY_COLOR,
+
+    //calendar today
+    inversePrimary: Color(0xff214b39),
+    //calendar select day
+    inverseSurface:Color(0xff419471),
+  ),
+
+  //card Theme
   cardTheme: const CardTheme(
-    color: CARD_BG,
+    elevation: 0.0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(10.0)),
     ),
   ),
+
+  //Check Box Theme
   checkboxTheme: CheckboxThemeData(
-    checkColor: MaterialStateProperty.all(FONT_COLOR2),
-    fillColor: MaterialStateProperty.all(SECONDARTY_COLOR),
+    checkColor: MaterialStateProperty.all(DARK_GREY),
+    fillColor: MaterialStateProperty.all(DPRIMARY_COLOR),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(3.0),
+      borderRadius: BorderRadius.circular(2.0),
+    ),
+    side:const BorderSide(
+      color: DPRIMARY_COLOR,
+      width: 2.0,
     ),
   ),
 
-  //Form Theme
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: TextButton.styleFrom(
-      primary: NEAR_WHITE,
-      backgroundColor: PRIMARY_COLOR,
+  //appBarTheme
+  appBarTheme: const AppBarTheme(
+    elevation: 0.0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.elliptical(500.0, 50.0),
+      ),
     ),
+  ),
+  //bottom nav bar
+  canvasColor: DARK_GREY,
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    elevation: 0,
+    unselectedItemColor:DPRIMARY_COLOR,
+    selectedItemColor: DPRIMARY_COLOR,
+   ),
+
+  textTheme: const TextTheme(
+    subtitle1: TextStyle(
+      color: DPRIMARY_COLOR,
+    )
   ),
 
   inputDecorationTheme: const InputDecorationTheme(
     enabledBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-        color: SECONDARTY_COLOR,
+        color: DPRIMARY_COLOR,
         width: 2.0,
       ),
     ),
     focusedBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-          color: PRIMARY_COLOR,
-        width: 2.0,
+          color: DPRIMARY_COLOR,
+        width: 4.0,
       ),
     ),
     fillColor: SECONDARTY_COLOR,
     focusColor: SECONDARTY_COLOR,
   ),
 
-  //bottom nav bar
-  canvasColor: PRIMARY_COLOR,
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    elevation: 0,
-    unselectedItemColor:ACCENT_COLOR,
-    selectedItemColor: NEAR_WHITE,
+  timePickerTheme: const TimePickerThemeData(
+    helpTextStyle: TextStyle(
+        color: DPRIMARY_COLOR,
+        fontWeight: FontWeight.w500,
+        fontSize: 20.0
+    ),
   ),
-
-  timePickerTheme: TimePickerThemeData(
-    dialBackgroundColor: NEAR_WHITE,
-    dialHandColor: SECONDARTY_COLOR,
-    backgroundColor: ACCENT_COLOR,
-
-    dayPeriodTextColor: SECONDARTY_COLOR,
-    dayPeriodColor: NEAR_WHITE,
-  ),
-
-
-  colorScheme: ColorScheme(
-    brightness: Brightness.light,
-    primary: PRIMARY_COLOR,
-    onPrimary: NEAR_WHITE,
-    secondary: SECONDARTY_COLOR,
-    onSecondary: NEAR_WHITE,
-    error: Colors.red.shade300,
-    onError: NEAR_WHITE,
-    background: BG_COLOR,
-    onBackground: NEAR_WHITE,
-    surface: ACCENT_COLOR,
-    onSurface: PRIMARY_COLOR,
-    outline: FONT_COLOR2,
-    //star
-    surfaceTint: STAR_COLOR,
-    //
-    surfaceVariant: CARD_BG,
-    //error container for calendar todotile background
-    errorContainer: ACCENT_COLOR,
-    //Donetile
-    onErrorContainer: CARD_BG,
-    //Calendar selected day marker color
-    inverseSurface: SECONDARTY_COLOR,
-    //Calendar today marker color
-    inversePrimary: ACCENT_COLOR,
-
-  ),
-);
-
-ThemeData darkTheme = ThemeData(
-  brightness: Brightness.dark,
 );

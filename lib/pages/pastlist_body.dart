@@ -89,7 +89,7 @@ class _PastBodyState extends State<PastBody> {
                               builder:(BuildContext context){
                                 return AlertDialog(
                                   title: const Text('Confirm Delete'),
-                                  content: const Text('Alert'),
+                                  content: const Text('This task will be permanently deleted'),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () {

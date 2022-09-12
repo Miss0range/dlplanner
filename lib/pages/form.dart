@@ -32,13 +32,9 @@ class _AddFormState extends State<AddForm> {
       }
   }
 
-  TextStyle labelStyle = const TextStyle(
-    fontSize: 20.0,
-  );
 
   ButtonStyle setBtnStyle = ElevatedButton.styleFrom(
     textStyle: const TextStyle(
-      fontFamily: 'Lato',
       fontSize: 16.0,
     ),
   );
@@ -56,7 +52,11 @@ class _AddFormState extends State<AddForm> {
         children: [
           Text(
             'Task Name',
-            style: labelStyle,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           TextFormField(
             initialValue: widget.taskName,
@@ -83,7 +83,11 @@ class _AddFormState extends State<AddForm> {
         children: [
           Text(
             'Text Due Date',
-            style: labelStyle,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -127,7 +131,11 @@ class _AddFormState extends State<AddForm> {
         children: [
           Text(
             'Task Due Time',
-            style: labelStyle,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
