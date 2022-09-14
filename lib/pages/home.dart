@@ -18,6 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _selectedIndex = 0;
+  List<String> bodyTitle = ['Things To Do', 'Things Accomplished', 'Things Past Due', 'Calendar'];
   List<Widget> bodyWidgets = [const TodoBody(),const DoneBody(), const PastBody(), const TaskCalendar()];
 
   //change nav bar index
@@ -38,9 +39,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
        appBar: AppBar(
          centerTitle: true,
-         title: const Text(
-           'Deadline Tracker',
-           style: TextStyle(
+         title: Text(
+           bodyTitle[_selectedIndex],
+           style: const TextStyle(
              fontSize: 24.0,
              fontWeight: FontWeight.w700,
          ),

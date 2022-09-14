@@ -32,7 +32,7 @@ ThemeData lightTheme = ThemeData(
     onError: Colors.white,
 
     surface: ACCENT_COLOR,
-    onSurface: FONT_COLOR2,
+    onSurface: PRIMARY_COLOR,
 
     //active card background / finished calendar card background
     surfaceVariant: BG_COLOR,

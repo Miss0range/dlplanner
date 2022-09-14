@@ -105,7 +105,7 @@ class _DoneBodyState extends State<DoneBody> {
                                         Navigator.pop(context, true);
                                         setState(() {
                                           ListContainer.of(context).doneList.remove(ListContainer.of(context).doneList[index]);
-                                          ListContainer.of(context).updateList('tasks');
+                                          ListContainer.of(context).updateList('done');
                                         });
                                       },
                                       child : const Text('Confirm'),

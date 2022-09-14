@@ -1,4 +1,5 @@
 
+import 'package:deadline_planner/pages/splash_screen.dart';
 import 'package:deadline_planner/theme/theme_constants.dart';
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
@@ -22,12 +23,14 @@ Future<void> main() async{
   runApp(ListContainer(
     listBox: box,
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
-      initialRoute: '/',
+      initialRoute: '/splash',
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => const Home(),
         '/form': (context) => AddForm(taskCombTime: DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day)),
+        '/splash':(context) => const LoadSplash(),
       },
     ),
   ));
