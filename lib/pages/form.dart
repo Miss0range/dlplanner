@@ -28,7 +28,7 @@ class _AddFormState extends State<AddForm> {
       taskTime = TimeOfDay(hour: widget.taskCombTime.hour, minute: widget.taskCombTime.minute);
       if(widget.edit){
         dateString = DateFormat.yMd().format(taskDate);
-        timeString = '${taskTime.hour.toString().padLeft(2,'0')} : ${taskTime.minute.toString().padLeft(2,'0')} ';
+        timeString = '${taskTime.hour.toString().padLeft(2,'0')} : ${taskTime.minute.toString().padLeft(2,'0')} ${taskTime.period.name.toUpperCase()}';
       }
   }
 
@@ -46,82 +46,78 @@ class _AddFormState extends State<AddForm> {
   );
 
   Widget _buildTextInput(BuildContext context){
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Task Name',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w700,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Task Name',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).colorScheme.primary,
           ),
-          TextFormField(
-            initialValue: widget.taskName,
-            validator: (val){
-              if(val == null || val.isEmpty){
-                return 'Task Name can\'t be empty';
-              }else if(val.length > 255){
-                return 'Task Name too long.';
-              }else {
-                widget.taskName = val;
-              }
-            },
+        ),
+        TextFormField(
+          initialValue: widget.taskName,
+          validator: (val){
+            if(val == null || val.isEmpty){
+              return 'Task Name can\'t be empty';
+            }else if(val.length > 255){
+              return 'Task Name too long.';
+            }else {
+              widget.taskName = val;
+            }
+          },
 
-          ),
-          const SizedBox(height: 20.0,),
-        ],
-      )
+        ),
+        const SizedBox(height: 20.0,),
+      ],
     );
   }
   Widget _buildDateInput(BuildContext context){
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Text Due Date',
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Text Due Date',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            dateString,
             style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w700,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.secondary,
+              fontWeight: FontWeight.w500,
+              fontSize: 18.0,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              dateString,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-                fontWeight: FontWeight.w500,
-                fontSize: 18.0,
-              ),
-            ),
-          ),
-          ElevatedButton(
-            style: setBtnStyle,
-            onPressed: () async{
-              DateTime? tempTime = await showDatePicker(
-                context: context,
-                initialDate: taskDate,
-                firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(const Duration(days: 730)),
-              );
-              taskDate = tempTime ?? taskDate;
-              //update date on form
-              if(tempTime != null) {
-                setState(() {
-                  dateString = DateFormat.yMd().format(taskDate);
-                });
-              }
-            },
-            child: const Text('Set Due Date'),
-          ),
-          const SizedBox(height: 20.0,),
-        ],
-      ),
+        ),
+        ElevatedButton(
+          style: setBtnStyle,
+          onPressed: () async{
+            DateTime? tempTime = await showDatePicker(
+              context: context,
+              initialDate: taskDate,
+              firstDate: DateTime.now(),
+              lastDate: DateTime.now().add(const Duration(days: 730)),
+            );
+            taskDate = tempTime ?? taskDate;
+            //update date on form
+            if(tempTime != null) {
+              setState(() {
+                dateString = DateFormat.yMd().format(taskDate);
+              });
+            }
+          },
+          child: const Text('Set Due Date'),
+        ),
+        const SizedBox(height: 20.0,),
+      ],
     );
   }
   Widget _buildTimeInput(BuildContext context){

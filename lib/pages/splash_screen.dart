@@ -14,7 +14,6 @@ class _LoadSplashState extends State<LoadSplash> {
   void initState() {
     super.initState();
     _redirectHome();
-
   }
 
   void _redirectHome() async{
