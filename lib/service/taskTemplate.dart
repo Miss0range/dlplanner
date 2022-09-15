@@ -34,7 +34,7 @@ class _TaskTemplateState extends State<TaskTemplate> {
             ),
           ),
           const SizedBox(
-            width: 30.0,
+            width: 25.0,
           ),
           Text(
             widget.task.getTimeLeft(),
@@ -47,7 +47,8 @@ class _TaskTemplateState extends State<TaskTemplate> {
         ],
       );
     } else {
-      return Text(widget.task.getDate(),
+      return Text(
+          widget.task.getDate(),
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
             fontSize: 16.0,
@@ -59,13 +60,15 @@ class _TaskTemplateState extends State<TaskTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3.0,horizontal: 6.0),
+      padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 16.0,
         child: Card(
           margin: EdgeInsets.zero,
           elevation: 0.0,
-          color: (widget.task.taskTime.compareTo(DateTime.now()) > 0) ? Theme.of(context).colorScheme.surfaceVariant : Theme.of(context).colorScheme.tertiary,
+          color: (widget.task.taskTime.compareTo(DateTime.now()) > 0)
+              ? Theme.of(context).colorScheme.surfaceVariant
+              : Theme.of(context).colorScheme.tertiary,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

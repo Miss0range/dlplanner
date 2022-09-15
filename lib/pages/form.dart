@@ -176,7 +176,7 @@ class _AddFormState extends State<AddForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      //Avoid keyboard input overflow
       resizeToAvoidBottomInset : false,
       appBar: AppBar(
         centerTitle: true,
@@ -189,7 +189,7 @@ class _AddFormState extends State<AddForm> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 50.0),
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 50.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -201,11 +201,12 @@ class _AddFormState extends State<AddForm> {
               Center(
                 child: ElevatedButton(
                   onPressed: (){
-                    if(_formKey.currentState!.validate()){
+                    //Prevent _formKey.current state being null
+                    if(_formKey.currentState != null && _formKey.currentState!.validate()){
                       DateTime combTime = DateTime(taskDate.year,taskDate.month,taskDate.day,taskTime.hour,taskTime.minute);
                       if(combTime.difference(DateTime.now()).isNegative){
                         String dtError = '';
-                        if(taskDate.difference(DateTime.now()).isNegative){
+                        if(taskDate.difference(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)).isNegative){
                           dtError = 'date';
                         }else{
                           dtError = 'time';

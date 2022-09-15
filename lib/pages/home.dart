@@ -59,6 +59,9 @@ class _HomeState extends State<Home> {
             if(!mounted) return;
               ListContainer.of(context).taskList.add(tempTask);
               ListContainer.of(context).updateList('tasks');
+              setState((){
+                _selectedIndex = 0;
+              });
           }
         },
         tooltip: 'Add',

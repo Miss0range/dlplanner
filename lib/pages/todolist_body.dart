@@ -13,7 +13,7 @@ class TodoBody extends StatefulWidget {
 
 class _TodoBodyState extends State<TodoBody> {
 
-  //use only for refresh body
+  //use only for refresh body / update past task in task list
   Future<bool> refresh() async{
     setState(() {
       ListContainer.of(context).checkPastTask();

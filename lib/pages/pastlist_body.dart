@@ -61,6 +61,7 @@ class _PastBodyState extends State<PastBody> {
                               thisTask.taskTime = modifiedTask['taskTime'];
                               ListContainer.of(context).updateList('tasks');
                             }
+                            //check if new task date is in future
                             if(thisTask.taskTime.compareTo(DateTime.now()) > 0){
                               ListContainer.of(context).taskList.add(thisTask);
                               ListContainer.of(context).pastList.remove(thisTask);

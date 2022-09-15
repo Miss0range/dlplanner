@@ -17,6 +17,7 @@ class Task{
   Task({required this.text, required this.taskTime, this.completed = false, this.special = false});
 
   String getDate() {
+    //don't display year if the task's year is this year.
     if(taskTime.year == DateTime.now().year){
       return '${DateFormat.Md().format(taskTime)} ${DateFormat.jm().format(taskTime)}';
     }else {

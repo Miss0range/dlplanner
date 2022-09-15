@@ -17,7 +17,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
   CalendarFormat format = CalendarFormat.month;
   DateTime focusedDay = DateTime.now();
   DateTime selectedDay = DateTime.utc(
-      DateTime.now().year, DateTime.now().month, DateTime.now().day);
+      DateTime.now().year, DateTime.now().month, DateTime.now().day);//Date only. No hour no min
   Map<DateTime, List<Event>> selectedTodoEvents = {};
   Map<DateTime, List<Event>> selectedDoneEvents = {};
   Map<DateTime, List<Event>> selectedPastEvents = {};
@@ -28,6 +28,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
   }
 
   List<Event> getEventsFromDate(DateTime date) {
+    //concatenate event lists of this date.
     return [
       ...(selectedTodoEvents[date] ?? []),
       ...(selectedDoneEvents[date] ?? []),
@@ -47,7 +48,8 @@ class _TaskCalendarState extends State<TaskCalendar> {
       if (selectedEvents[date] == null) {
         selectedEvents[date] = [];
       }
-      selectedEvents[date]?.add(taskToEvent(task));
+      //selectedEvents[date] is ensured not null.
+      selectedEvents[date]!.add(taskToEvent(task));
     });
   }
 
@@ -71,7 +73,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
   //build widget function
   Widget _buildTodoTitle() {
     if ((selectedTodoEvents[selectedDay]??[]).isEmpty) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     } else {
       return Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 20.0, 0.0, 0.0),
@@ -79,6 +81,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
           'Todo',
           style: TextStyle(
             fontSize: 20.0,
+            fontWeight: FontWeight.w500,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
@@ -88,7 +91,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
 
   Widget _buildFinishTitle() {
     if ((selectedDoneEvents[selectedDay]??[]).isEmpty) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     } else {
       return Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 20.0, 0.0, 0.0),
@@ -96,6 +99,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
           'Finished',
           style: TextStyle(
             fontSize: 20.0,
+            fontWeight: FontWeight.w500,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
@@ -105,7 +109,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
 
   Widget _buildPastTitle() {
     if ((selectedPastEvents[selectedDay]??[]).isEmpty) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     } else {
       return Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 20.0, 0.0, 0.0),
@@ -113,7 +117,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
           'Past Due',
           style: TextStyle(
             fontSize: 20.0,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
@@ -124,6 +128,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -140,7 +145,6 @@ class _TaskCalendarState extends State<TaskCalendar> {
             },
             startingDayOfWeek: StartingDayOfWeek.sunday,
             daysOfWeekVisible: true,
-
             //On date selected.
             onDaySelected: (DateTime tempSelectedDay, DateTime tempFocusedDay) {
               setState(() {
@@ -186,9 +190,9 @@ class _TaskCalendarState extends State<TaskCalendar> {
           _buildTodoTitle(),
           ...getEventsFromDateAndList(selectedTodoEvents, selectedDay)
               .map((e) => Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: ListTile(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
                       tileColor: Theme.of(context).colorScheme.primaryContainer,
@@ -258,6 +262,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       ),
                     ),
                   )),
+          const SizedBox(height: 60.0,), //prevent last card being blocked by bottom navigation bar.
         ],
       ),
     );
