@@ -117,29 +117,36 @@ class _TaskTemplateState extends State<TaskTemplate> {
                 ),
               ),
               //Due date
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(12.0, 0.0, 0.0, 0.0),
-                    child: _buildTime(context),
-                  ),
-                  //time left
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: widget.editTask,
-                        icon: const Icon(Icons.edit_note_rounded),
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      IconButton(
-                        onPressed: widget.delete,
-                        icon: const Icon(Icons.delete_forever),
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ],
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 6.0, 8.0, 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12.0, 0.0, 0.0, 0.0),
+                      child: _buildTime(context),
+                    ),
+                    //time left
+                    Row(
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: BoxConstraints(),
+                          onPressed: widget.editTask,
+                          icon: const Icon(Icons.edit_note_rounded),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: BoxConstraints(),
+                          onPressed: widget.delete,
+                          icon: const Icon(Icons.delete_forever),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

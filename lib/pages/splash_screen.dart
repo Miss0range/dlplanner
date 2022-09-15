@@ -18,7 +18,9 @@ class _LoadSplashState extends State<LoadSplash> {
 
   void _redirectHome() async{
     await Future.delayed(const Duration(milliseconds: 1500),(){});
-    Navigator.pushReplacementNamed(context, '/');
+    Navigator.of(context).pop();
+    Navigator.of(context).pushNamed('/');
+    Navigator.of(context).pop();
   }
 
   @override

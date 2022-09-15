@@ -35,6 +35,8 @@ class _DoneBodyState extends State<DoneBody> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      color: Theme.of(context).colorScheme.onPrimary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       child: Column(
         children: [
           _buildTitle(context),

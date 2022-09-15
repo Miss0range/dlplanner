@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.deadline_planner">
+    package="com.magicajen.task_planner">
    <application
         android:label="Task Planner"
         android:name="${applicationName}"

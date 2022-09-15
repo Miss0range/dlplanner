@@ -1,4 +1,4 @@
-package com.example.deadline_planner
+package com.magicajen.task_planner
 
 import io.flutter.embedding.android.FlutterActivity
 
