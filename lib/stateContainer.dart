@@ -37,7 +37,7 @@ class _ListContainerState extends State<ListContainer> {
   List<Task> taskList = [];
   List<Task> doneList = [];
   List<Task> pastList = [];
-
+  late Box box;
 
   void updateList(String name){
     switch(name){
@@ -93,14 +93,23 @@ class _ListContainerState extends State<ListContainer> {
     taskList = (widget.listBox.get('tasks')?? []).cast<Task>();
     doneList = (widget.listBox.get('done')?? []).cast<Task>();
     pastList = (widget.listBox.get('past')?? []).cast<Task>();
+    box = widget.listBox;
 
     //Remove past due task from taskList
     checkPastTask();
     widget.listBox.put('tasks',taskList);
     //Remove expired task from taskList
     pastList.removeWhere((task) => ( !task.special && (task.taskTime.add(const Duration(days:30)).compareTo(DateTime.now()) < 0 )) );
+    doneList.removeWhere((task) => ( !task.special && (task.taskTime.add(const Duration(days:30)).compareTo(DateTime.now()) < 0 )) );
     widget.listBox.put('past',pastList);
+  }
 
+  @override
+  void dispose() {
+    taskList.clear();
+    doneList.clear();
+    pastList.clear();
+    super.dispose();
   }
 
   @override

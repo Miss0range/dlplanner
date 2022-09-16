@@ -22,6 +22,8 @@ class _TaskCalendarState extends State<TaskCalendar> {
   Map<DateTime, List<Event>> selectedDoneEvents = {};
   Map<DateTime, List<Event>> selectedPastEvents = {};
 
+
+
   List<Event> getEventsFromDateAndList(
       Map<DateTime, List<Event>> selectedEvents, DateTime date) {
     return selectedEvents[date] ?? [];
@@ -68,6 +70,14 @@ class _TaskCalendarState extends State<TaskCalendar> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     initList();
+  }
+
+  @override
+  void dispose(){
+    selectedDoneEvents.clear();
+    selectedPastEvents.clear();
+    selectedTodoEvents.clear();
+    super.dispose();
   }
 
   //build widget function
