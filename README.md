@@ -2,7 +2,7 @@
 
 Deadline planner
 
-Demo: https://appetize.io/embed/lkpxza25bmx3sbx64cmfqyzveu?device=pixel4&osVersion=12.0&scale=75
+<a href= "https://appetize.io/embed/chhemo35roji7csbfsikxrspyu?device=pixel4&osVersion=12.0&scale=75">Demo on appetize.io</a>
 
 ## Getting Started
 
