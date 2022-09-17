@@ -19,6 +19,7 @@ class _AddFormState extends State<AddForm> {
   String timeString = '00:00';
 
   late DateTime taskDate ;
+  late DateTime oldTaskDate ;
   late TimeOfDay taskTime ;
 
   @override
@@ -26,6 +27,7 @@ class _AddFormState extends State<AddForm> {
     super.initState();
       taskDate = DateTime(widget.taskCombTime.year,widget.taskCombTime.month, widget.taskCombTime.day);
       taskTime = TimeOfDay(hour: widget.taskCombTime.hour, minute: widget.taskCombTime.minute);
+      oldTaskDate = taskDate;
       if(widget.edit){
         dateString = DateFormat.yMd().format(taskDate);
         timeString = '${taskTime.hour.toString().padLeft(2,'0')} : ${taskTime.minute.toString().padLeft(2,'0')} ${taskTime.period.name.toUpperCase()}';
@@ -103,7 +105,7 @@ class _AddFormState extends State<AddForm> {
             DateTime? tempTime = await showDatePicker(
               context: context,
               initialDate: taskDate,
-              firstDate: DateTime.now(),
+              firstDate: widget.edit ? oldTaskDate : DateTime.now(),
               lastDate: DateTime.now().add(const Duration(days: 730)),
             );
             taskDate = tempTime ?? taskDate;

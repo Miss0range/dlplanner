@@ -46,6 +46,7 @@ class _IntroPageState extends State<IntroPage> {
                   ),
                 ),
                 Container(
+                  color: Theme.of(context).colorScheme.surfaceVariant,
                   alignment: Alignment.topCenter,
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.85,
@@ -57,6 +58,7 @@ class _IntroPageState extends State<IntroPage> {
                   ),
                 ),
                 Container(
+                  color: Theme.of(context).colorScheme.surfaceVariant,
                   alignment: Alignment.topCenter,
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.85,

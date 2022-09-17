@@ -34,7 +34,7 @@ class _TaskTemplateState extends State<TaskTemplate> {
             ),
           ),
           const SizedBox(
-            width: 25.0,
+            width: 16.0,
           ),
           Text(
             widget.task.getTimeLeft(),
@@ -136,6 +136,7 @@ class _TaskTemplateState extends State<TaskTemplate> {
                           icon: const Icon(Icons.edit_note_rounded),
                           color: Theme.of(context).colorScheme.primary,
                         ),
+                        SizedBox(width: 6.0,),
                         IconButton(
                           padding: EdgeInsets.zero,
                           constraints: BoxConstraints(),
