@@ -20,25 +20,38 @@ Future<void> main() async{
   //use this or flutter clean.Prefer flutter clean.
   //await Hive.deleteBoxFromDisk('listBox');
 
-  var box = await Hive.openBox('listBox');
+  Box box = await Hive.openBox('listBox');
 
-  //Check if user has see intro
-  bool intro = true;
-  intro = box.get('intro')?? intro ;
+  runApp(MyApp(box: box,));
+}
 
-  runApp(ListContainer(
-    listBox: box,
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      initialRoute: intro ? '/intro' :'/splash',
-      routes: {
-        '/': (context) => const Home(),
-        '/form': (context) => AddForm(taskCombTime: DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day)),
-        '/splash':(context) => const LoadSplash(),
-        '/intro':(context) => const IntroPage(),
-      },
-    ),
-  ));
+class MyApp extends StatefulWidget {
+  final Box box;
+  const MyApp({Key? key, required this.box}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  Widget build(BuildContext context) {
+    return ListContainer(
+      listBox: widget.box,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        //Check if user has see intro
+        initialRoute: (widget.box.get('intro')?? true) ? '/intro' :'/splash',
+        routes: {
+          '/': (context) => const Home(),
+          '/form': (context) => AddForm(taskCombTime: DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day)),
+          '/splash':(context) => const LoadSplash(),
+          '/intro':(context) => const IntroPage(),
+        },
+      ),
+    );
+  }
 }
